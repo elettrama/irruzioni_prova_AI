@@ -49,7 +49,6 @@
       -webkit-user-select: none;
     }
 
-    /* Griglia urbana */
     .bg-grid-pattern {
       background-size: 36px 36px;
       background-image: 
@@ -57,7 +56,6 @@
         linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     }
 
-    /* Stili D3 Rete */
     .link-line {
       fill: none;
       stroke-opacity: 0.5;
@@ -74,7 +72,6 @@
       filter: drop-shadow(0 0 10px rgba(217, 27, 36, 0.85));
     }
 
-    /* Effetto Equalizzatore Audio */
     @keyframes barBounce {
       0%, 100% { height: 4px; }
       50% { height: 20px; }
@@ -92,12 +89,10 @@
     .playing .eq-bar:nth-child(4) { animation: barBounce 0.6s 0.1s infinite ease-in-out; }
     .playing .eq-bar:nth-child(5) { animation: barBounce 0.8s 0.25s infinite ease-in-out; }
 
-    /* Custom range audio */
     input[type=range] {
       accent-color: #D91B24;
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 7px;
     }
@@ -115,10 +110,11 @@
 </head>
 <body class="w-screen h-screen relative font-sans overflow-hidden flex flex-col bg-brand-black">
 
-  <!-- HEADER / BARRA SUPERIORE -->
-  <header class="w-full z-20 bg-brand-charcoal/95 backdrop-blur-md border-b border-brand-border px-3 sm:px-5 py-2.5 flex items-center justify-between shadow-lg flex-shrink-0">
-    <div class="flex items-center gap-3">
-      <!-- Logo Triangolare Irruzioni -->
+  <!-- HEADER CON I 3 BOTTONI: CHI SIAMO, PASSATE EDIZIONI, QUIZ -->
+  <header class="w-full z-50 bg-brand-charcoal/95 backdrop-blur-md border-b border-brand-border px-3 sm:px-5 py-2.5 flex items-center justify-between shadow-lg flex-shrink-0">
+    
+    <!-- SINISTRA: LOGO E TITOLO -->
+    <div class="flex items-center gap-3 flex-shrink-0">
       <div class="relative w-8 h-8 flex items-center justify-center bg-black border border-brand-border rounded-lg shadow-inner">
         <svg viewBox="0 0 100 100" class="w-5 h-5">
           <polygon points="50,15 90,85 10,85" fill="#D91B24"/>
@@ -129,41 +125,63 @@
           <h1 class="font-display font-extrabold tracking-wider text-sm sm:text-base uppercase text-white flex items-center gap-1.5">
             IRRUZIONI <span class="text-[10px] px-1.5 py-0.5 rounded bg-brand-red text-white font-bold">MAP</span>
           </h1>
-          <span class="hidden md:inline-block text-xs text-brand-muted border-l border-brand-border pl-2">Festival diffuso di peripezie urbane</span>
+          <span class="hidden xl:inline-block text-xs text-brand-muted border-l border-brand-border pl-2">Festival diffuso di peripezie urbane</span>
         </div>
         <p class="text-[10.5px] text-zinc-400">Padova • Associazione Voyager (APS)</p>
       </div>
     </div>
 
-    <!-- SELETTORE VISTA (RETE / TENDINA) & AZIONI -->
-    <div class="flex items-center gap-2 sm:gap-3">
-      <!-- Switch Modalità -->
-      <div class="bg-black/60 p-1 rounded-xl border border-brand-border flex items-center shadow-inner">
-        <button id="view-accordion-btn" class="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg transition-all duration-200 bg-brand-red text-white shadow-sm">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
-          <span>Menù a tendina</span>
-        </button>
-        <button id="view-network-btn" class="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg transition-all duration-200 text-zinc-400 hover:text-white">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v6m0 6v6m9-9h-6m-6 0H3"></path></svg>
-          <span>Rete / Grafo</span>
-        </button>
-      </div>
+    <!-- CENTRO: MENU A 3 BOTTONI (CHI SIAMO, PASSATE EDIZIONI, QUIZ) -->
+    <nav class="flex items-center gap-1 sm:gap-2 bg-black/60 p-1 rounded-xl border border-brand-border shadow-inner">
+      <!-- 1. Tasto CHI SIAMO -->
+      <button 
+        type="button"
+        onclick="alert('Sezione CHI SIAMO in fase di allestimento!');"
+        class="text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-brand-surface transition"
+      >
+        CHI SIAMO
+      </button>
 
-      <!-- Ricerca -->
-      <div class="relative hidden lg:block w-52">
-        <input 
-          id="search-input" 
-          type="text" 
-          placeholder="Cerca (es. Piovego, Herlitzka)..." 
-          class="w-full bg-brand-surface text-xs text-white placeholder-zinc-500 rounded-lg px-3 py-1.5 pl-8 border border-brand-border focus:outline-none focus:border-brand-red transition-all"
-        />
-        <svg class="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      <!-- 2. Tasto PASSATE EDIZIONI -->
+      <button 
+        type="button"
+        onclick="alert('Sezione PASSATE EDIZIONI in arrivo!');"
+        class="text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-brand-surface transition whitespace-nowrap"
+      >
+        PASSATE EDIZIONI
+      </button>
+
+      <!-- 3. Tasto QUIZ (Con navigazione diretta a quiz.html) -->
+      <a 
+        href="quiz.html" 
+        id="nav-btn-quiz"
+        onclick="window.location.href='quiz.html'; return true;"
+        class="text-xs font-bold px-3 py-1.5 rounded-lg bg-brand-red hover:bg-brand-crimson text-white transition flex items-center gap-1.5 shadow-md shadow-brand-red/30 active:scale-95 uppercase tracking-wide cursor-pointer"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
+        <span>QUIZ</span>
+      </a>
+    </nav>
+
+    <!-- DESTRA: SWITCHER VISTA (TENDINA / RETE) & MANIFESTO -->
+    <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+      <div class="bg-black/60 p-1 rounded-xl border border-brand-border flex items-center shadow-inner">
+        <button id="view-accordion-btn" class="flex items-center gap-1.5 text-xs font-medium px-2.5 sm:px-3 py-1.5 rounded-lg transition-all duration-200 bg-brand-red text-white shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+          <span class="hidden md:inline">Menù a tendina</span>
+          <span class="md:hidden">Tendina</span>
+        </button>
+        <button id="view-network-btn" class="flex items-center gap-1.5 text-xs font-medium px-2.5 sm:px-3 py-1.5 rounded-lg transition-all duration-200 text-zinc-400 hover:text-white">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v6m0 6v6m9-9h-6m-6 0H3"></path></svg>
+          <span class="hidden md:inline">Rete / Grafo</span>
+          <span class="md:hidden">Rete</span>
+        </button>
       </div>
 
-      <!-- Manifesto Button -->
-      <button id="btn-manifesto" class="text-xs bg-brand-surface hover:bg-brand-border text-zinc-200 font-medium px-2.5 sm:px-3 py-1.5 rounded-lg flex items-center gap-1.5 border border-brand-border transition">
+      <!-- Tasto Manifesto -->
+      <button id="btn-manifesto" class="text-xs bg-brand-surface hover:bg-brand-border text-zinc-200 font-medium px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-brand-border transition">
         <svg class="w-3.5 h-3.5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
         <span class="hidden sm:inline">Manifesto</span>
       </button>
@@ -173,24 +191,20 @@
   <!-- CONTENITORE VISTE -->
   <main class="flex-1 relative w-full h-[calc(100vh-60px)] overflow-hidden">
 
-    <!-- ================================================================= -->
-    <!-- 1. VISTA MENÙ A TENDINA (ACCORDION) + AUDIOPLAYER HERO -->
-    <!-- ================================================================= -->
+    <!-- 1. VISTA MENÙ A TENDINA + AUDIOPLAYER -->
     <div id="accordion-view-container" class="w-full h-full overflow-y-auto px-4 sm:px-6 lg:px-12 py-5 pb-24">
       <div class="max-w-4xl mx-auto space-y-5">
 
-        <!-- AUDIOPLAYER HERO SECTION (Ascolta il Podcast) -->
+        <!-- AUDIOPLAYER HERO SECTION -->
         <section class="bg-gradient-to-r from-brand-charcoal via-brand-surface to-[#221517] border border-brand-red/40 rounded-2xl p-4 sm:p-5 shadow-2xl relative overflow-hidden">
           <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-brand-red/10 rounded-full blur-2xl pointer-events-none"></div>
 
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <!-- Testo e info Podcast -->
             <div class="flex items-center gap-3.5">
               <div class="relative w-12 h-12 rounded-xl bg-black border border-brand-red/50 flex items-center justify-center flex-shrink-0 shadow-inner group">
                 <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path>
                 </svg>
-                <!-- Equalizzatore visivo -->
                 <div id="audio-eq" class="absolute bottom-1.5 flex items-end gap-0.5 h-4">
                   <div class="eq-bar"></div>
                   <div class="eq-bar"></div>
@@ -211,9 +225,8 @@
               </div>
             </div>
 
-            <!-- Fallback selettore file locale se bloccato dalle policy del browser -->
             <div class="self-end sm:self-center">
-              <label for="local-audio-file" title="Seleziona manualmente se il browser blocca la riproduzione file:///" class="cursor-pointer text-[11px] text-zinc-400 hover:text-white bg-black/40 hover:bg-black/70 border border-brand-border px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition">
+              <label for="local-audio-file" title="Seleziona se il browser blocca la riproduzione file:///" class="cursor-pointer text-[11px] text-zinc-400 hover:text-white bg-black/40 hover:bg-black/70 border border-brand-border px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition">
                 <svg class="w-3.5 h-3.5 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
                 <span>Scegli file locale</span>
               </label>
@@ -221,41 +234,34 @@
             </div>
           </div>
 
-          <!-- CONTROLLI AUDIOPLAYER PERSONALIZZATI -->
+          <!-- CONTROLLI AUDIOPLAYER -->
           <div class="mt-4 pt-3.5 border-t border-brand-border/60 flex flex-col gap-2">
-            <!-- Barra di avanzamento (Seek bar) -->
             <div class="flex items-center gap-2">
               <span id="audio-time-current" class="text-[11px] font-mono text-zinc-400 w-10 text-right">0:00</span>
               <input id="audio-progress" type="range" min="0" max="100" value="0" step="0.1" class="flex-1 h-1.5 bg-black/70 rounded-lg appearance-none cursor-pointer">
               <span id="audio-time-total" class="text-[11px] font-mono text-zinc-400 w-10">0:00</span>
             </div>
 
-            <!-- Riga Pulsanti Play/Pause, Volume, Velocità -->
             <div class="flex items-center justify-between mt-1">
               <div class="flex items-center gap-2 sm:gap-3">
-                <!-- Play / Pausa -->
                 <button id="audio-play-btn" class="w-10 h-10 rounded-full bg-brand-red hover:bg-brand-crimson text-white flex items-center justify-center shadow-lg transition active:scale-95">
                   <svg id="play-icon" class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                   <svg id="pause-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
 
-                <!-- Salta indietro 10s -->
                 <button id="audio-back-10" title="Riavvolgi 10s" class="p-1.5 text-zinc-400 hover:text-white rounded-lg hover:bg-brand-surface transition">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"></path></svg>
                 </button>
 
-                <!-- Salta avanti 10s -->
                 <button id="audio-fwd-10" title="Avanza 10s" class="p-1.5 text-zinc-400 hover:text-white rounded-lg hover:bg-brand-surface transition">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.934 12.8a1 1 0 000-1.6l-5.334-4A1 1 0 005 8v8a1 1 0 001.6.8l5.334-4zM19.934 12.8a1 1 0 000-1.6l-5.334-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.334-4z"></path></svg>
                 </button>
 
-                <!-- Selettore velocità -->
                 <button id="audio-speed-btn" class="text-[11px] font-mono font-medium text-zinc-400 hover:text-white bg-black/40 px-2 py-1 rounded border border-brand-border">
                   1.0x
                 </button>
               </div>
 
-              <!-- Controllo Volume -->
               <div class="flex items-center gap-2">
                 <button id="audio-mute-btn" class="text-zinc-400 hover:text-white">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
@@ -264,9 +270,7 @@
               </div>
             </div>
 
-            <!-- Elemento audio HTML5 effettivo con sorgenti multiple -->
             <audio id="main-audio-element" preload="metadata">
-              <!-- Cerca automaticamente le estensioni comuni del file nella stessa directory -->
               <source src="L_agopuntura_urbana_del_festival_Irruzioni.mp3" type="audio/mpeg">
               <source src="L_agopuntura_urbana_del_festival_Irruzioni.m4a" type="audio/mp4">
               <source src="L_agopuntura_urbana_del_festival_Irruzioni.wav" type="audio/wav">
@@ -275,7 +279,7 @@
           </div>
         </section>
 
-        <!-- Barra Strumenti Accordion: Espandi/Comprimi -->
+        <!-- Barra Strumenti Accordion -->
         <div class="flex items-center justify-between text-xs text-zinc-400 pt-1 pb-1">
           <div class="flex items-center gap-2">
             <span class="font-semibold uppercase tracking-wider text-[11px] text-zinc-300">Aree della Mappa Mentale</span>
@@ -287,19 +291,14 @@
           </div>
         </div>
 
-        <!-- LISTA FISARMONICA DINAMICA (ACCORDION) -->
-        <div id="accordion-list" class="space-y-3">
-          <!-- Inserito dinamicamente da JS -->
-        </div>
+        <!-- LISTA TENDINE -->
+        <div id="accordion-list" class="space-y-3"></div>
 
       </div>
     </div>
 
-    <!-- ================================================================= -->
     <!-- 2. VISTA RETE / GRAFO D3.JS -->
-    <!-- ================================================================= -->
     <div id="network-view-container" class="w-full h-full relative hidden bg-grid-pattern">
-      <!-- Legenda Temi -->
       <div class="absolute bottom-4 left-4 z-10 bg-brand-charcoal/90 backdrop-blur-md p-3 rounded-xl border border-brand-border text-xs shadow-xl hidden md:block">
         <div class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-2">Aree Tematiche</div>
         <div class="space-y-1.5" id="legend-container"></div>
@@ -308,7 +307,6 @@
         </div>
       </div>
 
-      <!-- Pulsanti Zoom Float -->
       <div class="absolute top-4 right-4 z-10 flex flex-col bg-brand-charcoal/90 border border-brand-border rounded-xl p-1 shadow-lg">
         <button id="btn-zoom-in" title="Ingrandisci" class="p-2 hover:bg-brand-surface rounded-lg text-zinc-300 hover:text-white transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -321,15 +319,11 @@
         </button>
       </div>
 
-      <!-- SVG Grafo D3 -->
       <svg id="mindmap-svg" class="w-full h-full cursor-grab active:cursor-grabbing"></svg>
     </div>
 
-    <!-- ================================================================= -->
-    <!-- DRAWER LATERALE (DETTAGLIO NODO) CONDIVISO -->
-    <!-- ================================================================= -->
+    <!-- DRAWER LATERALE DETTAGLIO NODO -->
     <aside id="node-drawer" class="absolute top-0 right-0 h-full w-full sm:w-[440px] lg:w-[490px] bg-brand-charcoal/95 backdrop-blur-xl border-l border-brand-border z-30 transform translate-x-full transition-transform duration-300 ease-out flex flex-col shadow-2xl">
-      <!-- Intestazione Drawer -->
       <div class="p-5 border-b border-brand-border flex items-start justify-between bg-black/40">
         <div>
           <span id="drawer-tag" class="inline-block text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-brand-red/20 text-brand-red border border-brand-red/30 mb-2">
@@ -345,33 +339,27 @@
         </button>
       </div>
 
-      <!-- Contenuto Drawer -->
       <div class="flex-1 p-5 overflow-y-auto space-y-4">
-        <!-- Citazione dal Manifesto -->
         <div id="drawer-quote-box" class="p-3.5 bg-brand-surface border-l-4 border-brand-red rounded-r-lg text-xs italic text-zinc-200 leading-relaxed hidden">
           <p id="drawer-quote"></p>
         </div>
 
-        <!-- Descrizione Principale -->
         <div>
           <h4 class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">Approfondimento & Ruolo</h4>
           <p id="drawer-desc" class="text-sm text-zinc-300 leading-relaxed whitespace-pre-line"></p>
         </div>
 
-        <!-- Statistiche -->
         <div id="drawer-stats-box" class="hidden">
           <h4 class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Dati & Numeri del Festival</h4>
           <div id="drawer-stats" class="grid grid-cols-2 gap-2 text-xs"></div>
         </div>
 
-        <!-- Ramificazioni -->
         <div id="drawer-children-box">
           <h4 class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Elementi Collegati</h4>
           <ul id="drawer-children-list" class="space-y-1.5 text-xs text-zinc-300"></ul>
         </div>
       </div>
 
-      <!-- Footer Drawer con azione rapida -->
       <div class="p-4 border-t border-brand-border bg-black/40 flex justify-between items-center text-xs text-zinc-500">
         <span>Irruzioni • Padova</span>
         <button id="drawer-action-network" class="text-white hover:text-brand-red flex items-center gap-1 font-medium transition">
@@ -381,9 +369,7 @@
       </div>
     </aside>
 
-    <!-- ================================================================= -->
     <!-- MODALE MANIFESTO -->
-    <!-- ================================================================= -->
     <div id="modal-manifesto" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200">
       <div class="bg-brand-charcoal border border-brand-border rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
         <div class="p-5 border-b border-brand-border flex items-center justify-between bg-black/50">
@@ -423,11 +409,7 @@
 
   </main>
 
-  <!-- =====================================================================
-       DATI E SCRIPT APPLICATIVO
-       ===================================================================== -->
   <script>
-    /* DATI DELLA MAPPA MENTALE */
     const data = {
       id: "root",
       name: "IRRUZIONI",
@@ -645,23 +627,18 @@
       storia: { label: "Storia, Numeri & Ospiti", color: "#8E24AA" }
     };
 
-    /* =====================================================================
-       COSTRUZIONE ACCORDION (MENÙ A TENDINA)
-       ===================================================================== */
     const accordionListEl = document.getElementById("accordion-list");
 
     function renderAccordion() {
       accordionListEl.innerHTML = "";
 
-      data.children.forEach((section, sIdx) => {
+      data.children.forEach((section) => {
         const itemMeta = categoryMeta[section.category] || { color: section.color, label: section.name };
-        
         const card = document.createElement("div");
         card.className = "bg-brand-charcoal/90 border border-brand-border rounded-xl overflow-hidden shadow-sm transition hover:border-brand-border/90";
         card.id = `accordion-group-${section.id}`;
 
         card.innerHTML = `
-          <!-- Intestazione Categoria (Cliccabile) -->
           <button 
             type="button" 
             class="accordion-trigger w-full px-4 sm:px-5 py-4 flex items-center justify-between text-left hover:bg-brand-surface/40 transition group"
@@ -686,7 +663,6 @@
             </div>
           </button>
 
-          <!-- Corpo a tendina -->
           <div id="acc-content-${section.id}" class="accordion-panel hidden border-t border-brand-border/70 bg-black/30 p-4 sm:p-5 space-y-3">
             <p class="text-xs text-zinc-300 leading-relaxed italic border-l-2 pl-3 py-1 mb-3" style="border-color: ${itemMeta.color}">
               ${section.desc}
@@ -720,13 +696,11 @@
         accordionListEl.appendChild(card);
       });
 
-      // Event Listeners per apertura/chiusura tendine
       document.querySelectorAll(".accordion-trigger").forEach(btn => {
         btn.addEventListener("click", () => {
           const targetId = btn.getAttribute("data-target");
           const panel = document.getElementById(targetId);
           const icon = btn.querySelector(".chevron-icon");
-          
           if (panel.classList.contains("hidden")) {
             panel.classList.remove("hidden");
             icon.classList.add("rotate-180");
@@ -737,25 +711,20 @@
         });
       });
 
-      // Clic su singola scheda per aprire Drawer
       document.querySelectorAll(".accordion-card").forEach(el => {
         el.addEventListener("click", () => {
           const nid = el.getAttribute("data-node-id");
           const matched = findNodeInTree(rootHierarchy, nid);
-          if (matched) {
-            selectNode(matched);
-          }
+          if (matched) selectNode(matched);
         });
       });
 
-      // Apri di default la prima tendina
       const firstPanel = document.querySelector(".accordion-panel");
       const firstChevron = document.querySelector(".chevron-icon");
       if (firstPanel) firstPanel.classList.remove("hidden");
       if (firstChevron) firstChevron.classList.add("rotate-180");
     }
 
-    // Ricerca nodo nell'albero
     function findNodeInTree(node, id) {
       if (node.data.id === id) return node;
       if (node.children) {
@@ -767,7 +736,6 @@
       return null;
     }
 
-    // Espandi tutto / Comprimi tutto
     document.getElementById("btn-expand-all").addEventListener("click", () => {
       document.querySelectorAll(".accordion-panel").forEach(p => p.classList.remove("hidden"));
       document.querySelectorAll(".chevron-icon").forEach(c => c.classList.add("rotate-180"));
@@ -777,9 +745,7 @@
       document.querySelectorAll(".chevron-icon").forEach(c => c.classList.remove("rotate-180"));
     });
 
-    /* =====================================================================
-       GESTIONE AUDIOPLAYER HTML5 & PODCAST
-       ===================================================================== */
+    /* AUDIO */
     const audioEl = document.getElementById("main-audio-element");
     const playBtn = document.getElementById("audio-play-btn");
     const playIcon = document.getElementById("play-icon");
@@ -794,7 +760,6 @@
     const localFileInput = document.getElementById("local-audio-file");
     const fileStatus = document.getElementById("player-file-status");
 
-    // Format tempo in mm:ss
     function formatTime(seconds) {
       if (isNaN(seconds) || seconds < 0) return "0:00";
       const m = Math.floor(seconds / 60);
@@ -802,14 +767,11 @@
       return `${m}:${s < 10 ? '0' : ''}${s}`;
     }
 
-    // Toggle Play/Pause
     function togglePlay() {
       if (audioEl.paused) {
-        audioEl.play().then(() => {
-          updatePlayUI(true);
-        }).catch(err => {
+        audioEl.play().then(() => updatePlayUI(true)).catch(err => {
           console.warn("Autoplay/Load issue:", err);
-          fileStatus.textContent = "Clicca 'Scegli file locale' se il browser blocca l'accesso";
+          fileStatus.textContent = "Usa 'Scegli file locale' se il browser blocca l'accesso";
           fileStatus.classList.add("text-brand-crimson");
         });
       } else {
@@ -832,11 +794,9 @@
 
     playBtn.addEventListener("click", togglePlay);
 
-    // Aggiornamento tempo e seek
     audioEl.addEventListener("timeupdate", () => {
       if (audioEl.duration) {
-        const percent = (audioEl.currentTime / audioEl.duration) * 100;
-        audioProgress.value = percent;
+        audioProgress.value = (audioEl.currentTime / audioEl.duration) * 100;
         timeCurrent.textContent = formatTime(audioEl.currentTime);
       }
     });
@@ -860,7 +820,6 @@
       }
     });
 
-    // Salta 10 secondi
     document.getElementById("audio-back-10").addEventListener("click", () => {
       audioEl.currentTime = Math.max(0, audioEl.currentTime - 10);
     });
@@ -868,7 +827,6 @@
       if (audioEl.duration) audioEl.currentTime = Math.min(audioEl.duration, audioEl.currentTime + 10);
     });
 
-    // Controllo Velocità (1x, 1.25x, 1.5x, 2x)
     const speeds = [1.0, 1.25, 1.5, 2.0];
     let speedIdx = 0;
     speedBtn.addEventListener("click", () => {
@@ -877,31 +835,20 @@
       speedBtn.textContent = `${speeds[speedIdx]}x`;
     });
 
-    // Controllo Volume
     volumeSlider.addEventListener("input", (e) => {
       audioEl.volume = e.target.value;
-      if (audioEl.volume === 0) {
-        audioEl.muted = true;
-      } else {
-        audioEl.muted = false;
-      }
+      audioEl.muted = (audioEl.volume === 0);
     });
 
     muteBtn.addEventListener("click", () => {
       audioEl.muted = !audioEl.muted;
-      if (audioEl.muted) {
-        volumeSlider.value = 0;
-      } else {
-        volumeSlider.value = audioEl.volume || 0.85;
-      }
+      volumeSlider.value = audioEl.muted ? 0 : (audioEl.volume || 0.85);
     });
 
-    // Caricamento manuale file locale se la sandbox file:/// del browser blocca il caricamento relativo
     localFileInput.addEventListener("change", function(e) {
       const file = e.target.files[0];
       if (file) {
-        const fileURL = URL.createObjectURL(file);
-        audioEl.src = fileURL;
+        audioEl.src = URL.createObjectURL(file);
         audioEl.load();
         audioEl.play().then(() => updatePlayUI(true)).catch(console.error);
         fileStatus.textContent = `Caricato: ${file.name}`;
@@ -910,9 +857,7 @@
       }
     });
 
-    /* =====================================================================
-       SWITCHER DI VISTA (MENÙ A TENDINA <-> GRAFO A RETE)
-       ===================================================================== */
+    /* VIEW SWITCHER */
     const accordionBtn = document.getElementById("view-accordion-btn");
     const networkBtn = document.getElementById("view-network-btn");
     const accordionContainer = document.getElementById("accordion-view-container");
@@ -936,19 +881,14 @@
         accordionBtn.classList.remove("bg-brand-red", "text-white");
         accordionBtn.classList.add("text-zinc-400");
 
-        // Ricalcola layout al primo switch
-        setTimeout(() => {
-          updateLayout();
-        }, 50);
+        setTimeout(() => updateLayout(), 50);
       }
     }
 
     accordionBtn.addEventListener("click", () => setView('accordion'));
     networkBtn.addEventListener("click", () => setView('network'));
 
-    /* =====================================================================
-       GRAFO D3.JS (VISTA A RETE)
-       ===================================================================== */
+    /* D3 GRAFO */
     const svgEl = d3.select("#mindmap-svg");
     const gMain = svgEl.append("g");
     let width = window.innerWidth;
@@ -957,9 +897,7 @@
 
     const zoomBehavior = d3.zoom()
       .scaleExtent([0.3, 2.5])
-      .on("zoom", (event) => {
-        gMain.attr("transform", event.transform);
-      });
+      .on("zoom", (event) => gMain.attr("transform", event.transform));
 
     svgEl.call(zoomBehavior);
 
@@ -994,7 +932,6 @@
         .angle(d => d.x)
         .radius(d => d.y);
 
-      // Disegna Collegamenti
       gMain.append("g")
         .selectAll("path")
         .data(links)
@@ -1005,7 +942,6 @@
         .attr("stroke", d => d.target.data.color || d.source.data.color || "#444")
         .attr("stroke-width", d => Math.max(1.2, 3.5 - d.target.depth * 0.8));
 
-      // Disegna Nodi
       const nodeGroups = gMain.append("g")
         .selectAll("g")
         .data(nodes)
@@ -1027,7 +963,6 @@
         const el = d3.select(this);
         const nodeColor = d.data.color || (d.parent ? d.parent.data.color : "#D91B24");
 
-        // Alone esterno per livello radice e 1
         if (d.depth <= 1) {
           el.append("circle")
             .attr("r", d.depth === 0 ? 38 : 22)
@@ -1035,7 +970,6 @@
             .attr("opacity", 0.22);
         }
 
-        // Cerchio principale
         const radius = d.depth === 0 ? 28 : (d.depth === 1 ? 16 : 10);
         el.append("circle")
           .attr("class", "main-circle transition-all duration-200")
@@ -1044,7 +978,6 @@
           .attr("stroke", nodeColor)
           .attr("stroke-width", d.depth <= 1 ? 3 : 2);
 
-        // Icona centrale o contatore
         if (d.depth === 0) {
           el.append("path")
             .attr("d", "M-6,-6 L6,-6 L0,7 Z")
@@ -1066,7 +999,6 @@
             .text(d.children.length);
         }
 
-        // Etichetta di testo
         if (d.depth > 0) {
           const isRight = d.x < Math.PI;
           const textEl = el.append("text")
@@ -1106,7 +1038,6 @@
       svgEl.transition().duration(600).call(zoomBehavior.transform, transform);
     }
 
-    /* Popola legenda D3 */
     const legendEl = document.getElementById("legend-container");
     Object.keys(categoryMeta).forEach(key => {
       if (key === 'core') return;
@@ -1124,9 +1055,7 @@
       legendEl.appendChild(div);
     });
 
-    /* =====================================================================
-       DRAWER LATERALE (DETTAGLIO NODO)
-       ===================================================================== */
+    /* DRAWER */
     const drawer = document.getElementById("node-drawer");
     const drawerTag = document.getElementById("drawer-tag");
     const drawerTitle = document.getElementById("drawer-title");
@@ -1143,13 +1072,11 @@
     function selectNode(d) {
       activeSelectedNode = d;
 
-      // Aggiorna stili rete se siamo nella vista grafo
       d3.selectAll(".node-group circle.main-circle").attr("stroke-width", 2);
       d3.select(`#node-el-${d.data.id} circle.main-circle`).attr("stroke-width", 4.5);
       d3.selectAll(".link-line").classed("active", false);
       d3.selectAll(`.link-${d.data.id}`).classed("active", true);
 
-      // Popola Drawer
       const cat = categoryMeta[d.data.category] || { label: "NODO", color: "#D91B24" };
       drawerTag.textContent = cat.label;
       drawerTag.style.borderColor = cat.color;
@@ -1159,7 +1086,6 @@
       drawerSubtitle.textContent = d.data.subtitle || (d.parent ? `Sezione: ${d.parent.data.name}` : "Cuore di Irruzioni");
       drawerDesc.textContent = d.data.desc || "Nessuna informazione descrittiva.";
 
-      // Citazione manifesto
       if (d.data.quote) {
         drawerQuote.textContent = `«${d.data.quote}»`;
         drawerQuoteBox.classList.remove("hidden");
@@ -1167,7 +1093,6 @@
         drawerQuoteBox.classList.add("hidden");
       }
 
-      // Statistiche
       if (d.data.stats && d.data.stats.length > 0) {
         drawerStats.innerHTML = "";
         d.data.stats.forEach(st => {
@@ -1184,7 +1109,6 @@
         drawerStatsBox.classList.add("hidden");
       }
 
-      // Figli / Sottocategorie
       if (d.children && d.children.length > 0) {
         drawerChildrenList.innerHTML = "";
         d.children.forEach(c => {
@@ -1202,10 +1126,8 @@
         drawerChildrenBox.classList.add("hidden");
       }
 
-      // Apri Drawer
       drawer.classList.remove("translate-x-full");
 
-      // Se in vista rete, centra sul nodo
       if (!networkContainer.classList.contains("hidden")) {
         focusOnNode(d);
       }
@@ -1214,9 +1136,7 @@
     function focusOnNode(d) {
       let targetX = 0;
       let targetY = 0;
-      if (d.depth > 0) {
-        [targetX, targetY] = project(d.x, d.y);
-      }
+      if (d.depth > 0) targetX = project(d.x, d.y)[0], targetY = project(d.x, d.y)[1];
       const offsetX = window.innerWidth > 768 ? -120 : 0;
       const scale = d.depth === 0 ? 0.9 : 1.35;
       const transform = d3.zoomIdentity
@@ -1238,35 +1158,11 @@
       if (activeSelectedNode) focusOnNode(activeSelectedNode);
     });
 
-    // Controlli Zoom Rete
-    document.getElementById("btn-zoom-in").addEventListener("click", () => {
-      svgEl.transition().duration(300).call(zoomBehavior.scaleBy, 1.3);
-    });
-    document.getElementById("btn-zoom-out").addEventListener("click", () => {
-      svgEl.transition().duration(300).call(zoomBehavior.scaleBy, 0.7);
-    });
-    document.getElementById("btn-reset").addEventListener("click", () => {
-      centerView();
-      closeDrawer();
-    });
+    document.getElementById("btn-zoom-in").addEventListener("click", () => svgEl.transition().duration(300).call(zoomBehavior.scaleBy, 1.3));
+    document.getElementById("btn-zoom-out").addEventListener("click", () => svgEl.transition().duration(300).call(zoomBehavior.scaleBy, 0.7));
+    document.getElementById("btn-reset").addEventListener("click", () => { centerView(); closeDrawer(); });
 
-    // Ricerca istantanea
-    document.getElementById("search-input").addEventListener("input", (e) => {
-      const term = e.target.value.toLowerCase().trim();
-      if (!term) return;
-
-      const matched = rootHierarchy.descendants().find(d => 
-        d.data.name.toLowerCase().includes(term) || (d.data.desc && d.data.desc.toLowerCase().includes(term))
-      );
-
-      if (matched) {
-        selectNode(matched);
-      }
-    });
-
-    /* =====================================================================
-       MODALE MANIFESTO
-       ===================================================================== */
+    /* MODALE MANIFESTO */
     const modal = document.getElementById("modal-manifesto");
     const openModalBtn = document.getElementById("btn-manifesto");
     const closeModalBtn = document.getElementById("btn-close-modal");
@@ -1280,19 +1176,14 @@
     closeModalBottomBtn.addEventListener("click", closeModal);
     modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-    /* =====================================================================
-       INIZIALIZZAZIONE
-       ===================================================================== */
+    /* INIZIALIZZAZIONE */
     window.addEventListener("resize", () => {
-      if (!networkContainer.classList.contains("hidden")) {
-        updateLayout();
-      }
+      if (!networkContainer.classList.contains("hidden")) updateLayout();
     });
 
     window.onload = function() {
       renderAccordion();
       updateLayout();
-      // Mostra inizialmente in modalità Accordion con player in primo piano
       setView('accordion');
     };
   </script>
