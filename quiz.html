@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz — Festival Irruzioni</title>
+  
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: #141418;
+      --surface-border: #30303b;
+      --red: #D91B24;
+      --red-hover: #b8141c;
+      --text: #F5F5F7;
+      --text-muted: #9494a3;
+      --correct: #10b981;
+      --correct-bg: rgba(16, 185, 129, 0.12);
+      --correct-border: rgba(16, 185, 129, 0.45);
+      --wrong: #ef4444;
+      --wrong-bg: rgba(239, 68, 68, 0.12);
+      --wrong-border: rgba(239, 68, 68, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      padding: 2.5rem 1rem 4rem;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      background-size: 36px 36px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 740px;
+    }
+
+    /* Testata */
+    header {
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--red);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      transition: color 0.2s ease;
+    }
+    .nav-back:hover {
+      color: #fff;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    h1 span {
+      color: var(--red);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Schede Domande */
+    .quiz-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .question-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .question-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      color: var(--red);
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .question-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--surface-border);
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .option-label:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: #4a4a58;
+    }
+
+    .option-label input[type="radio"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--text-muted);
+      border-radius: 50%;
+      outline: none;
+      display: grid;
+      place-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s ease;
+    }
+
+    .option-label input[type="radio"]::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: transform 0.15s ease-in-out;
+      background-color: var(--red);
+    }
+
+    .option-label input[type="radio"]:checked {
+      border-color: var(--red);
+    }
+
+    .option-label input[type="radio"]:checked::before {
+      transform: scale(1);
+    }
+
+    /* Feedback visuale post-verifica */
+    .option-label.is-correct {
+      background: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: #34d399;
+      font-weight: 600;
+    }
+    .option-label.is-wrong {
+      background: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+      color: #f87171;
+    }
+
+    /* Spiegazioni (nascoste all'inizio) */
+    .explanation-box {
+      display: none;
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.4);
+      border-left: 3px solid var(--red);
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+    .explanation-box strong {
+      color: #fff;
+    }
+
+    /* Pulsanti Azione */
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.9rem 2.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-submit {
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(217, 27, 36, 0.35);
+    }
+    .btn-submit:hover {
+      background: var(--red-hover);
+      box-shadow: 0 6px 20px rgba(217, 27, 36, 0.5);
+    }
+
+    .btn-reset {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+    }
+    .btn-reset:hover {
+      color: #fff;
+      border-color: #666;
+    }
+
+    /* Banner Punteggio */
+    .score-banner {
+      display: none;
+      background: linear-gradient(135deg, rgba(217, 27, 36, 0.2), rgba(0, 0, 0, 0.5));
+      border: 1px solid var(--red);
+      border-radius: 12px;
+      padding: 1.75rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .score-banner h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .score-banner p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <a href="index.html" class="nav-back">← Torna alla Mappa Mentale</a>
+      <h1>Quiz <span>Irruzioni</span></h1>
+      <p class="subtitle">5 domande per mettere alla prova la tua conoscenza sui formati, i luoghi, la storia e il manifesto del festival.</p>
+    </header>
+
+    <!-- Banner Risultato Finale (Mostrato solo dopo la verifica) -->
+    <div id="scoreBanner" class="score-banner">
+      <h2 id="scoreTitle">Punteggio: 0 / 5</h2>
+      <p id="scoreMsg">Le soluzioni corrette e le relative spiegazioni sono ora visibili sotto ogni domanda.</p>
+    </div>
+
+    <form id="quizForm">
+
+      <!-- DOMANDA 1 -->
+      <div class="quiz-card" data-q="q1">
+        <div class="question-header">
+          <span class="question-num">01.</span>
+          <div class="question-text">Quali sono i tre "Concetti Chiave" alla base dell'identità del festival Irruzioni?</div>
+        </div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q1" value="A"> A) Musica, Fiume, Teatro</label>
+          <label class="option-label"><input type="radio" name="q1" value="B"> B) Diffusione, Peripezia, Urbano</label>
+          <label class="option-label"><input type="radio" name="q1" value="C"> C) Politica, Partecipazione, Spettacolo</label>
+          <label class="option-label"><input type="radio" name="q1" value="D"> D) Digitale, Centro, Avanguardia</label>
+        </div>
+        <div class="explanation-box" id="exp-q1">
+          <strong>Risposta corretta: B</strong><br>
+          Nelle slide di presentazione dell'Associazione Voyager, i tre pilastri dell'identità sono definiti chiaramente: <em>Diffusione</em>, <em>Peripezia</em> e <em>Urbano</em>.
+        </div>
+      </div>
+
+      <!-- DOMANDA 2 -->
+      <div class="quiz-card" data-q="q2">
+        <div class="question-header">
+          <span class="question-num">02.</span>
+          <div class="question-text">In quale anno il festival ha registrato il suo picco record di 5.000 spettatori e 32 associazioni coinvolte?</div>
+        </div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q2" value="A"> A) 2017</label>
+          <label class="option-label"><input type="radio" name="q2" value="B"> B) 2018</label>
+          <label class="option-label"><input type="radio" name="q2" value="C"> C) 2019</label>
+          <label class="option-label"><input type="radio" name="q2" value="D"> D) 2021</label>
+        </div>
+        <div class="explanation-box" id="exp-q2">
+          <strong>Risposta corretta: C</strong><br>
+          I dati storici delle edizioni riportano per il 2019 il picco di 5.000 spettatori, 26 eventi in 4 giorni e ben 32 associazioni partecipanti.
+        </div>
+      </div>
+
+      <!-- DOMANDA 3 -->
+      <div class="quiz-card" data-q="q3">
+        <div class="question-header">
+          <span class="question-num">03.</span>
+          <div class="question-text">Nel manifesto del 2021, come viene definito il modus operandi culturale di Irruzioni?</div>
+        </div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q3" value="A"> A) Intrattenimento popolare di piazza</label>
+          <label class="option-label"><input type="radio" name="q3" value="B"> B) Vandalismo creativo e invasione delle zone scure della città</label>
+          <label class="option-label"><input type="radio" name="q3" value="C"> C) Marketing urbano post-industriale</label>
+          <label class="option-label"><input type="radio" name="q3" value="D"> D) Accademia d'arte istituzionale</label>
+        </div>
+        <div class="explanation-box" id="exp-q3">
+          <strong>Risposta corretta: B</strong><br>
+          Il manifesto 2021 dichiara: <em>«Il nostro vandalismo creativo nasce da soglie improrogabili... dove le zone scure della città vengano portate in palmo di mano e non schiacciate sotto la pianta del piede»</em>.
+        </div>
+      </div>
+
+      <!-- DOMANDA 4 -->
+      <div class="quiz-card" data-q="q4">
+        <div class="question-header">
+          <span class="question-num">04.</span>
+          <div class="question-text">In quale luogo inusuale e periferico il festival ha programmato una sfida nazionale di poesia per l'edizione 2023?</div>
+        </div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q4" value="A"> A) Nel parcheggio della Coop</label>
+          <label class="option-label"><input type="radio" name="q4" value="B"> B) Sulla cupola del Palazzo della Ragione</label>
+          <label class="option-label"><input type="radio" name="q4" value="C"> C) All'interno dell'aeroporto civile</label>
+          <label class="option-label"><input type="radio" name="q4" value="D"> D) Nello Stadio Euganeo</label>
+        </div>
+        <div class="explanation-box" id="exp-q4">
+          <strong>Risposta corretta: A</strong><br>
+          Nelle slide relative all'edizione 2023 ("Aspettative e progetti") è esplicitamente indicata la <em>«Sfida nazionale di poesia nel parcheggio della Coop»</em>.
+        </div>
+      </div>
+
+      <!-- DOMANDA 5 -->
+      <div class="quiz-card" data-q="q5">
+        <div class="question-header">
+          <span class="question-num">05.</span>
+          <div class="question-text">Quale caratteristico percorso fluviale è stato protagonista delle "Vogate poetiche" del festival?</div>
+        </div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q5" value="A"> A) Lungo il Brenta da Stra a Mira</label>
+          <label class="option-label"><input type="radio" name="q5" value="B"> B) Lungo il Piovego fino alle Porte Contarine</label>
+          <label class="option-label"><input type="radio" name="q5" value="C"> C) Nel Canale Battaglia verso i Colli Euganei</label>
+          <label class="option-label"><input type="radio" name="q5" value="D"> D) Attorno all'isola di San Giorgio</label>
+        </div>
+        <div class="explanation-box" id="exp-q5">
+          <strong>Risposta corretta: B</strong><br>
+          Il programma d'archivio documenta la <em>«Vogata poetica lungo il Piovego fino alle Porte Contarine»</em> con corteo acqueo di barche tradizionali in partenza dal molo del Portello.
+        </div>
+      </div>
+
+      <!-- Pulsanti d'Azione -->
+      <div class="actions">
+        <button type="button" id="btnSubmit" class="btn btn-submit" onclick="checkQuiz()">Verifica Risposte</button>
+        <button type="button" id="btnReset" class="btn btn-reset" onclick="resetQuiz()">Riprova il Quiz</button>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    // Risposte corrette
+    const correctAnswers = {
+      q1: "B",
+      q2: "C",
+      q3: "B",
+      q4: "A",
+      q5: "B"
+    };
+
+    function checkQuiz() {
+      const form = document.getElementById('quizForm');
+      let score = 0;
+      let allAnswered = true;
+
+      // Controllo se l'utente ha selezionato tutte le opzioni
+      for (const [qId] of Object.entries(correctAnswers)) {
+        const selected = form.querySelector(`input[name="${qId}"]:checked`);
+        if (!selected) {
+          allAnswered = false;
+        }
+      }
+
+      if (!allAnswered) {
+        if (!confirm("Non hai risposto a tutte le 5 domande. Vuoi verificare comunque?")) {
+          return;
+        }
+      }
+
+      // Valutazione delle risposte e rivelazione dei risultati
+      for (const [qId, correctVal] of Object.entries(correctAnswers)) {
+        const card = document.querySelector(`.quiz-card[data-q="${qId}"]`);
+        const options = card.querySelectorAll('.option-label');
+        const selected = form.querySelector(`input[name="${qId}"]:checked`);
+        const explanation = document.getElementById(`exp-${qId}`);
+
+        options.forEach(label => {
+          const input = label.querySelector('input');
+          input.disabled = true; // Blocca i radio button per evitare modifiche a posteriori
+
+          if (input.value === correctVal) {
+            label.classList.add('is-correct'); // Bordo e sfondo verde
+          } else if (selected && input.value === selected.value) {
+            label.classList.add('is-wrong'); // Bordo e sfondo rosso se scelta sbagliata
+          }
+        });
+
+        if (selected && selected.value === correctVal) {
+          score++;
+        }
+
+        // Mostra la spiegazione
+        explanation.style.display = 'block';
+      }
+
+      // Mostra il banner del punteggio
+      const banner = document.getElementById('scoreBanner');
+      const scoreTitle = document.getElementById('scoreTitle');
+      const scoreMsg = document.getElementById('scoreMsg');
+
+      scoreTitle.textContent = `Punteggio: ${score} / 5`;
+      if (score === 5) {
+        scoreMsg.textContent = "Perfetto! Conosci a fondo la storia, i luoghi e la visione di Irruzioni.";
+      } else if (score >= 3) {
+        scoreMsg.textContent = "Buon risultato! Leggi le spiegazioni sotto le domande per chiarire i dettagli mancanti.";
+      } else {
+        scoreMsg.textContent = "Puoi fare di meglio! Consulta le spiegazioni sotto ogni domanda per scoprire i retroscena del festival.";
+      }
+
+      banner.style.display = 'block';
+      banner.scrollIntoView({ behavior: 'smooth' });
+
+      // Cambio visibilità pulsanti
+      document.getElementById('btnSubmit').style.display = 'none';
+      document.getElementById('btnReset').style.display = 'inline-block';
+    }
+
+    function resetQuiz() {
+      const form = document.getElementById('quizForm');
+      form.reset();
+
+      // Ripristino stili
+      document.querySelectorAll('.option-label').forEach(label => {
+        label.classList.remove('is-correct', 'is-wrong');
+        const input = label.querySelector('input');
+        input.disabled = false;
+      });
+
+      document.querySelectorAll('.explanation-box').forEach(exp => {
+        exp.style.display = 'none';
+      });
+
+      document.getElementById('scoreBanner').style.display = 'none';
+      document.getElementById('btnSubmit').style.display = 'inline-block';
+      document.getElementById('btnReset').style.display = 'none';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
