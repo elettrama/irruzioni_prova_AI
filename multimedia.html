@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multimedia — Festival IRRUZIONI</title>
+  
+  <!-- Font Google & Tailwind CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#D91B24',
+              darkred: '#991118',
+              crimson: '#ff333e',
+              black: '#09090b',
+              charcoal: '#141418',
+              surface: '#1e1e24',
+              card: '#24242c',
+              border: '#30303b',
+              muted: '#9494a3',
+              light: '#F5F5F7'
+            }
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #09090b;
+      color: #F5F5F7;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans bg-brand-black flex flex-col">
+
+  <!-- HEADER -->
+  <header class="w-full bg-brand-charcoal/95 backdrop-blur-md border-b border-brand-border px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 flex items-center justify-center bg-black border border-brand-border rounded-lg shadow-inner">
+        <svg viewBox="0 0 100 100" class="w-5 h-5">
+          <polygon points="50,15 90,85 10,85" fill="#D91B24"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="font-display font-extrabold tracking-wider text-sm sm:text-base uppercase text-white flex items-center gap-1.5">
+          IRRUZIONI <span class="text-[10px] px-1.5 py-0.5 rounded bg-brand-red text-white font-bold">MULTIMEDIA</span>
+        </h1>
+        <p class="text-[11px] text-zinc-400">Archivio video e testimonianze visive del festival</p>
+      </div>
+    </div>
+
+    <!-- Collegamenti veloci -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <a 
+        href="quiz.html" 
+        target="_top"
+        onclick="window.location.href='quiz.html'"
+        class="text-xs bg-brand-surface hover:bg-brand-border text-zinc-300 hover:text-white px-3 py-2 rounded-lg border border-brand-border transition"
+      >
+        QUIZ
+      </a>
+      <a 
+        href="index.html" 
+        target="_top"
+        onclick="window.location.href='index.html'"
+        class="text-xs bg-brand-red hover:bg-brand-crimson text-white font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 transition active:scale-95 cursor-pointer shadow"
+      >
+        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        <span>Mappa Mentale</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- CONTENUTO PRINCIPALE -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8">
+    
+    <!-- Hero Box -->
+    <div class="bg-gradient-to-br from-brand-charcoal to-brand-surface border border-brand-border rounded-2xl p-6 sm:p-8 mb-8 shadow-xl">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-xs uppercase font-extrabold tracking-widest text-brand-red bg-brand-red/10 border border-brand-red/30 px-2 py-0.5 rounded">
+          Documentario & Reportage
+        </span>
+        <span class="text-xs text-zinc-400 font-mono">Video Ufficiale</span>
+      </div>
+      <h2 class="text-xl sm:text-3xl font-display font-black text-white mt-1">
+        Le Peripezie Urbane in Video
+      </h2>
+      <p class="text-xs sm:text-sm text-zinc-300 mt-2 leading-relaxed">
+        Rivivi l'atmosfera, le vogate poetiche sul fiume Piovego e gli atti di guerriglia culturale che trasformano la città di Padova.
+      </p>
+    </div>
+
+    <!-- VIDEO PLAYER EMBED (YouTube no-cookie con bypass per referrer mancanti) -->
+    <div class="bg-brand-charcoal border border-brand-border rounded-2xl p-4 sm:p-6 shadow-2xl space-y-4">
+      <div class="relative w-full overflow-hidden rounded-xl bg-black aspect-video border border-brand-border/60 shadow-inner">
+        <iframe 
+          class="absolute top-0 left-0 w-full h-full"
+          src="https://www.youtube-nocookie.com/embed/_aTCowomp7w?rel=0" 
+          title="IRRUZIONI Video Ufficiale YouTube" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2 text-xs text-zinc-400 border-t border-brand-border/50">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand-red flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+          <span>Canale YouTube: <a href="https://youtu.be/_aTCowomp7w" target="_blank" rel="noopener noreferrer" class="text-brand-crimson hover:underline font-mono">youtu.be/_aTCowomp7w</a></span>
+        </div>
+        <a 
+          href="https://youtu.be/_aTCowomp7w" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="px-3 py-1.5 rounded-lg bg-brand-surface hover:bg-brand-border text-zinc-200 border border-brand-border transition flex items-center gap-1.5"
+        >
+          <span>Apri video su YouTube</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="w-full border-t border-brand-border/60 py-6 text-center text-xs text-zinc-500">
+    Irruzioni — Festival diffuso di peripezie urbane • Padova
+  </footer>
+
+</body>
+</html>
